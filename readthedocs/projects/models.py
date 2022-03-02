@@ -1165,6 +1165,10 @@ class Project(models.Model):
         """Get the version representing 'latest'."""
         if self.default_branch:
             return self.default_branch
+
+        if self.remote_repository:
+            return self.remote_repository.default_branch
+
         return self.vcs_class().fallback_branch
 
     def add_subproject(self, child, alias=None):
